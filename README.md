@@ -53,6 +53,7 @@ Run repository commands from the repository you want to work in.
 | `nngit undo soft` | Undo commits while keeping their changes staged. |
 | `nngit undo hard` | Undo commits and throw away their changes. |
 | `nngit activity` | Summarize repository activity for today or a chosen number of days. |
+| `nngit commit-summary` | List commits on the current branch with file and line change counts and totals. Use `--base <ref>` to compare against a specific branch, tag, or commit; otherwise it uses the repository's default branch, preferring its remote reference. An explicit base is required on the default branch or when it cannot be determined. |
 
 `discard` and `undo hard` remove changes. Review each command's help before using them. Undo commands block pushed commits and commits authored by others unless you explicitly pass `--force`; `undo hard` also blocks uncommitted tracked changes and file collisions.
 
@@ -66,7 +67,7 @@ With the default generator installed and ready to use:
 nngit new-commit
 ```
 
-nngit passes the staged diff and your commit guidelines to the configured generator, then shows the proposed message for confirmation. You can accept it, request another message, or cancel. Cancellation or a failure after staging restores the previous staging state.
+nngit passes the staged diff and your commit guidelines to the configured generator, then shows the proposed message for confirmation. You can accept it, request another message, or cancel. Cancellation or a failure after staging attempts to restore the previous staging state. If restoration fails, nngit tells you to check `git status` before committing. Any default configuration files created remain in place.
 
 The first run creates `~/.nngit/config.json` and starter guidelines at `~/.nngit/guidelines/commit-message.md`. Edit the guidelines to control message style, or change `commitMessage.generator` in the config to use another executable and argument list.
 
